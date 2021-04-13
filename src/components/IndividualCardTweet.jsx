@@ -35,7 +35,7 @@ export const IndividualCardTweet = ({avatar, nombre, tweet, image,
                     <Image src={image} alt=""/>
                     <DFlex>
                         {
-                            fecha ? <Date>{fecha.slice(3, -34)}</Date> : null
+                            fecha ? <Date>{fecha}</Date> : null
                         }
                         <Device>Twitter for {device}</Device>
                     </DFlex>

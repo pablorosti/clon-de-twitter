@@ -55,7 +55,7 @@ const Header = styled.div`
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:15px 0;
+    padding:10px 0;
     background:white;
     width:100%;
     border-bottom:solid 1px lightgray;

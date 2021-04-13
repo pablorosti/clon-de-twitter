@@ -106,7 +106,7 @@ export const FormTwetear = () => {
                 }
                 
                 <form onSubmit={handleSubmit}>
-                    <Input type="text" 
+                    <Input  
                             placeholder='¿Qué está pasando?'
                             name='tweet'
                             value={tweet}

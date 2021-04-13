@@ -38,7 +38,7 @@ const DFlex = styled.div`
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:15px;
+    padding:8px 15px;
     & > h3 {
         margin-left:20px;
     }

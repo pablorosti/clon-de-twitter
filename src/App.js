@@ -42,9 +42,8 @@ function App() {
                       retweet={tweet.retweet}
                       verified={tweet.verificado}
                       setIdDeleted={setIdDeleted}
-
                     />
-        })
+                  })
         
       }
       {

@@ -26,7 +26,6 @@ const Container = styled.div`
     @media(min-width:768px){
         width:500px;
         margin:0 auto;
-        
     }
     
 `;
