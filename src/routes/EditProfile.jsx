@@ -15,7 +15,6 @@ export const EditProfile = () => {
     const [name, changeName] = useState('');
     const [image, setImage] = useState();
     const [loading, setLoading] = useState(false);
-    const [password, setPassword] = useState('')
 
     const handleChange = e => {
         if(e.target.name === 'name'){
@@ -63,20 +62,6 @@ export const EditProfile = () => {
         history.push('/perfil')
     }
 
-    const check = () => {
-        if(password === '123456'){
-            user.updateProfile({
-                za:true
-            }).then(result => {
-                //history.push('/')
-                console.log(user)
-            })
-        }
-    }
-    const handleCheckClick =  () => {
-        check();  
-    }
-
     return (
         <ContainerDesktop>
             <Header>
@@ -93,6 +78,7 @@ export const EditProfile = () => {
                         placeholder='Nuevo nombre'
                         value={name}
                         onChange={handleChange}
+                        autoComplete='off'
                     />
 
                     <h4>Editar foto de perfil</h4>
@@ -109,14 +95,8 @@ export const EditProfile = () => {
                     }
                     
                 </form>
-                <div>
-                    <h4>¿Quieres verificar tu cuenta?</h4>
-                    <InputText onChange={(e) => {setPassword(e.target.value)}} type="password" placeholder='Codigo de verificación'/>
-                    <CheckButton onClick={handleCheckClick}>Verificar</CheckButton>
-                </div>
             </Container>
-
-            
+ 
         </ContainerDesktop>
     )
 }
@@ -153,8 +133,4 @@ const InputText = styled.input`
     border:solid 1px gray;
     outline:none;
     width:170px;
-`;
-const CheckButton = styled.button`
-    margin-left:20px;
-    padding:4px;
 `;

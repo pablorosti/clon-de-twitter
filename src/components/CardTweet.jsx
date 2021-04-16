@@ -18,7 +18,6 @@ export const CardTweet = ({tweet, name, id, idUnico,
     const {user} = useAuth();
     const timeAgo = useTimeAgo(date)
     const [amountComment] = useGetCommentTweetForId(id);
-    
      
     //function to add and remove a like of the tweet.
     const [contLike, setContLike] = useState(0);

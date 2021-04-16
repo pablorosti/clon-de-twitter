@@ -5,10 +5,10 @@ import {Icon} from '../components/Icon';
 import {Title} from '../elements/Title';
 import {Input} from '../elements/InputLoginAndSignUp'
 import {Link, useHistory} from 'react-router-dom';
-import {auth, google} from '../firebase/firebaseConfig';
+import {auth, /*google*/} from '../firebase/firebaseConfig';
 import {Spinner} from '../components/Spinner';
-import {ButtonLoginGoogleAndFacebook} from '../elements/ButtonLoginGoogleAndFacebook';
-import {IconGoogle} from '../elements/IconGoogle';
+//import {ButtonLoginGoogleAndFacebook} from '../elements/ButtonLoginGoogleAndFacebook';
+//import {IconGoogle} from '../elements/IconGoogle';
 import {MessageError} from '../components/MessageError';
 
 export const Login = () => {
@@ -21,7 +21,7 @@ export const Login = () => {
     const [loading, changeLoading] = useState(false);
     const [error, setError] = useState(false)
     const [messageError, changeMessageError] = useState('');
-
+ 
     const handleChange = e => {
         switch (e.target.name) {
             case 'email':
@@ -89,12 +89,11 @@ export const Login = () => {
         }
     }
 
-    const handleLoginWithGoogleClick = async () => {
+    //const handleLoginWithGoogleClick = async () => {
 
-        await auth.signInWithPopup(google);
-        history.push('/')
-
-    }
+    //    await auth.signInWithPopup(google);
+    //    history.push('/')
+    //}
 
     return (
         <ContainerLogin>
@@ -122,13 +121,12 @@ export const Login = () => {
                     } 
                 </form>
 
-                <DFlex>
+                {/*<DFlex>
                     <Line/>
                     <p>O</p>
                     <Line/>
                 </DFlex>
-                <ButtonLoginGoogleAndFacebook onClick={handleLoginWithGoogleClick}><IconGoogle className='fab fa-google'></IconGoogle>Iniciar sesión con google</ButtonLoginGoogleAndFacebook>
-
+                <ButtonLoginGoogleAndFacebook onClick={handleLoginWithGoogleClick}><IconGoogle className='fab fa-google'></IconGoogle>Iniciar sesión con google</ButtonLoginGoogleAndFacebook>*/}
                 <SignUp to={'/registro-usuario'}>Regístrate en Twitter</SignUp>
             </Container>
         </ContainerLogin>
@@ -159,15 +157,15 @@ const ButtonLogin = styled.button`
     cursor:pointer;
     font-size:15px;
 `;
-const Line = styled.span`
-    border-bottom:solid 1px gray;
-    width:40%;
-`;
-const DFlex = styled.div`
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-`;
+//const Line = styled.span`
+    //border-bottom:solid 1px gray;
+    //width:40%;
+//`;
+//const DFlex = styled.div`
+//    display:flex;
+//    align-items:center;
+//    justify-content:space-between;
+//`;
 const ContainerLogin = styled.div`
 
     @media(min-width:768px){

@@ -20,9 +20,7 @@ function App() {
   return (
     <ContainerDesktop>
       <Header changeMenuBurguer={changeMenuBurguer}/>
-      <br/>
-      <br/>
-      <br/>
+      <Br></Br>
       {
         tweets.length === 0 
           ? <Loading><SpinnerBlue/></Loading>
@@ -85,4 +83,7 @@ const Loading = styled.div`
   @media(min-width:768px){
     width:95%;
   }
+`;
+const Br = styled.p`
+  height:50px;
 `;

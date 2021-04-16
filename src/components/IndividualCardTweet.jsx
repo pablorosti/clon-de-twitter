@@ -2,10 +2,10 @@ import React from 'react'
 import styled from 'styled-components';
 import {useHistory} from 'react-router-dom';
 import {ButtonBack} from '../elements/ButtonBack';
-import {getMobileOperatingSystem} from '../functions/getMobileOperatingSystem'
+import {getMobileOperatingSystem} from '../functions/getMobileOperatingSystem';
 
 export const IndividualCardTweet = ({avatar, nombre, tweet, image, 
-    fecha, retweet, likes}) => {
+    fecha, retweet, likes, fechaString}) => {
     
     const device = getMobileOperatingSystem();
     
@@ -35,7 +35,7 @@ export const IndividualCardTweet = ({avatar, nombre, tweet, image,
                     <Image src={image} alt=""/>
                     <DFlex>
                         {
-                            fecha ? <Date>{fecha}</Date> : null
+                            fecha ? <Date>{fechaString.slice(3, -34)}</Date> : null
                         }
                         <Device>Twitter for {device}</Device>
                     </DFlex>

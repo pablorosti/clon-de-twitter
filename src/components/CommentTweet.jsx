@@ -8,17 +8,28 @@ export const CommentTweet = ({id}) => {
     const {user} = useAuth();
 
     const [comment, setComment] = useState('');
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
+    const [countDown, setCountDown] = useState(280);
+
+    const handleKeyDown = e => {
+        if(e.key === 'Backspace'){
+            if(countDown >= 280){
+                setCountDown(280)
+            }else{
+                setCountDown(countDown + 1)
+            }
+        }else{
+            setCountDown(countDown - 1)
+        }
+    }
 
     const handleSubmit = async e => {
         e.preventDefault();
 
         setLoading(true);
-        if(comment !== ''){
 
-        }
         try {
-            if(comment !== ''){
+            if(comment !== '' && countDown >= 0){
                 await db.collection('tweets')
                 .doc(id)
                 .collection('comentario')
@@ -55,11 +66,22 @@ export const CommentTweet = ({id}) => {
                         placeholder='Twittea una respuesta'
                         value={comment}
                         onChange={(e) => {setComment(e.target.value)}}
+                        onKeyDown={handleKeyDown}
                     />
                 </Dflex>
-                {
-                    loading ? <Button><Spinner/></Button> : <Button>Responder</Button>
-                }
+                <DflexEnd>
+                    {
+                        countDown <= 280 && countDown >= 100
+                            ? <CountDown>{countDown}</CountDown> 
+                            : (countDown < 100 && countDown > 0 
+                                ? <CountDownYellow>{countDown}</CountDownYellow> 
+                                : <CountDownRed>{countDown}</CountDownRed> )
+                        
+                    }
+                    {
+                        loading ? <Button><Spinner/></Button> : <Button>Responder</Button>
+                    }
+                </DflexEnd>
                 
             </form>
         </Container>
@@ -68,6 +90,11 @@ export const CommentTweet = ({id}) => {
 const Dflex = styled.div`
     display:flex;
 
+`;
+const DflexEnd = styled.div`
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
 `;
 const Container = styled.div`
     margin:15px;
@@ -92,10 +119,28 @@ const Button = styled.button`
     color:white;
     padding:7px 20px;
     border-radius:20px;
-    float:right;
     margin-top:5px;
     font-weight:bold;
     font-size:15px;
     outline:none;
     width:100px;
+    cursor:pointer;
+`;
+const CountDown = styled.p`
+    font-size:15px;
+    color:var(--primary);
+    margin-right:1rem;
+    margin-top:5px;
+`;
+const CountDownYellow = styled.p`
+    font-size:15px;
+    color:orange;
+    margin-right:1rem;
+    margin-top:5px;
+`;
+const CountDownRed = styled.p`
+    font-size:15px;
+    color:red;
+    margin-right:1rem;
+    margin-top:5px;
 `;

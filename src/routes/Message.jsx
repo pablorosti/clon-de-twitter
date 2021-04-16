@@ -21,8 +21,6 @@ export const Message = () => {
         scroll()
     })
     
-    
-    
     const {user} = useAuth();
     const [message, setMessage] = useState('');
 
@@ -102,6 +100,11 @@ const Form = styled.form`
     background:transparent;
     width:100%;
     margin:0 auto 5px auto;
+
+    @media(min-width:768px){
+        width:500px;
+        margin:0 auto 5px auto;
+    }
 `;
 const Input = styled.input`
     width:70vw;
@@ -110,6 +113,11 @@ const Input = styled.input`
     padding:6px 0 6px 10px;
     outline:none;
     cursor:pointer;
+
+    @media(min-width:768px){
+        width:300px;
+        margin: 0 auto;
+    }
 `;
 const Button = styled.button`
     width:15vw;
@@ -120,9 +128,10 @@ const Button = styled.button`
     border-radius:20px;
     padding:5px;
     background:var(--primary);
+    cursor:pointer;
 
     @media(min-width:768px){
-        width:14vw;
+        width:50px;
     }
 `;
 const IconSend = styled.i`

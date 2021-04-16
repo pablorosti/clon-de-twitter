@@ -20,7 +20,7 @@ const Circle = styled.div`
     bottom:70px;
     right:10px;
     border-radius:50%;
-    padding:25px;
+    padding:22px;
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 
     @media(min-width:768px){

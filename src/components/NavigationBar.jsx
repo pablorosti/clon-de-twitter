@@ -3,9 +3,21 @@ import styled from 'styled-components';
 import {NavLink} from 'react-router-dom';
 
 export const NavigationBar = () => {
+
+    const handleClick = () => {
+        const scroll = () => {
+            window.scroll({
+                top:0, 
+                left:100,
+                behavior: 'smooth'
+            })
+        }
+        scroll() 
+    }
+    
     return (
         <Container>
-            <NavLink exact to={'/'}><Icon className="fas fa-home"></Icon></NavLink>
+            <NavLink exact to={'/'} onClick={handleClick}><Icon className="fas fa-home"></Icon></NavLink>
             <NavLink to={'/buscar'}><Icon className="fas fa-search"></Icon></NavLink>
             <NavLink to={'/notificaciones'}><Icon className="fas fa-bell"></Icon></NavLink>
             <NavLink to={'/mensajes'}><Icon className="far fa-envelope"></Icon></NavLink>

@@ -6,7 +6,6 @@ export const CardMessage = ({avatar, name, dateUTC, message, id}) => {
 
     const {user} = useAuth();
 
-
     return (
         <>
             {
@@ -50,7 +49,7 @@ export const CardMessage = ({avatar, name, dateUTC, message, id}) => {
 }
 const Card = styled.div`
     border:none;
-    border-radius:0 20px 20px 20px;
+    border-radius:0 25px 25px 25px;
     margin-left:5px;
     padding:3px 15px;
     max-width:200px;
@@ -59,7 +58,7 @@ const Card = styled.div`
 `;
 const CardReverse = styled.div`
     border:none;
-    border-radius:20px 0 20px 20px;
+    border-radius:25px 0 25px 25px;
     margin-right:5px;
     padding:3px 15px;
     max-width:200px;

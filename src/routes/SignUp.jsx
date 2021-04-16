@@ -5,10 +5,10 @@ import {Container} from '../elements/Container';
 import {Title} from '../elements/Title';
 import {Input} from '../elements/InputLoginAndSignUp';
 import {Icon} from '../components/Icon';
-import { auth, google } from '../firebase/firebaseConfig';
+import { auth, /*google*/ } from '../firebase/firebaseConfig';
 import {Spinner} from '../components/Spinner';
-import {ButtonLoginGoogleAndFacebook} from '../elements/ButtonLoginGoogleAndFacebook';
-import {IconGoogle} from '../elements/IconGoogle';
+//import {ButtonLoginGoogleAndFacebook} from '../elements/ButtonLoginGoogleAndFacebook';
+//import {IconGoogle} from '../elements/IconGoogle';
 import {MessageError} from '../components/MessageError';
 
 export const SignUp = () => {
@@ -120,11 +120,11 @@ export const SignUp = () => {
         } 
     }
 
-    const handleLoginWithGoogleClick = async () => {
+    //const handleLoginWithGoogleClick = async () => {
 
-        await auth.signInWithPopup(google);
-        history.push('/')
-    }
+    //    await auth.signInWithPopup(google);
+    //    history.push('/')
+    //}
 
     return (
         <ContainerSignUp>
@@ -179,12 +179,12 @@ export const SignUp = () => {
                     
                 </form>
 
-                <DFlex>
+                {/*<DFlex>
                     <Line/>
                     <p>O</p>
                     <Line/>
                 </DFlex>
-                <ButtonLoginGoogleAndFacebook onClick={handleLoginWithGoogleClick}><IconGoogle className='fab fa-google'></IconGoogle>Créate una cuenta con Google</ButtonLoginGoogleAndFacebook>
+                <ButtonLoginGoogleAndFacebook onClick={handleLoginWithGoogleClick}><IconGoogle className='fab fa-google'></IconGoogle>Créate una cuenta con Google</ButtonLoginGoogleAndFacebook>*/}
                 
                 <Login to={'/login'}>Iniciar sesión</Login>
             </Container>
@@ -214,15 +214,15 @@ const Login = styled(Link)`
     margin:0 auto;
     font-size:17px;
 `;
-const Line = styled.span`
-    border-bottom:solid 1px gray;
-    width:40%;
-`;
-const DFlex = styled.div`
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-`;
+//const Line = styled.span`
+//    border-bottom:solid 1px gray;
+//    width:40%;
+//`;
+//const DFlex = styled.div`
+//    display:flex;
+//    align-items:center;
+//    justify-content:space-between;
+//`;
 const ContainerSignUp = styled.div`
 
     @media(min-width:768px){

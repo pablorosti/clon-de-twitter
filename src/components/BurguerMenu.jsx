@@ -62,7 +62,7 @@ const Header = styled.div`
     justify-content:space-between;
     border-bottom:solid 1px lightgray;
     max-width:100%;
-    padding:20px;
+    padding:15px;
     &>p{
         font-weight:bold;
     }
@@ -74,11 +74,15 @@ const Img = styled.img`
     border-radius:100%;
     width:50px;
     height:50px;
+    cursor:pointer;
 `;
 const DFlex = styled.div`
     display:flex;
-    justify-content:space-between;
     margin:1rem 0;
+
+    & > p:last-child{
+        margin-left:20px;
+    }
 `;
 const Button = styled.button`
     display:block;
@@ -88,6 +92,7 @@ const Button = styled.button`
     color:white;
     outline:none;
     font-size:15px;
+    cursor:pointer;
 
     & > i {
         margin-right:5px;
@@ -96,6 +101,7 @@ const Button = styled.button`
 const CloseMenu = styled.button`
     background:transparent;
     border:none;
+    cursor:pointer;
 
     & > i {
         color:white;

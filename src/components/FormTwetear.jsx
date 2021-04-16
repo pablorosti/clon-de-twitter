@@ -7,7 +7,7 @@ import {Spinner} from './Spinner';
 import {ButtonBack} from '../elements/ButtonBack';
 import { uid } from 'uid';
 import {storage} from '../firebase/firebaseConfig';
-
+import {MessageError} from '../components/MessageError';
 
 
 export const FormTwetear = () => {
@@ -17,6 +17,8 @@ export const FormTwetear = () => {
     const [tweet, changeTweet] = useState('')
     const [loading, changeLoading] = useState(false);
     const [image, setImage] = useState();
+    const [error, setError] = useState(false);
+    const [countDown, setCountDown] = useState(280);
 
     const idUnico = uid(16);
 
@@ -28,57 +30,137 @@ export const FormTwetear = () => {
         if(e.target.name === 'tweet'){
             changeTweet(e.target.value)
         }else if(e.target.name === 'file'){
-            setImage(e.target.files[0])
+            setError(false);
+            setImage(e.target.files[0]);
+        }
+    }
+    const handleKeyDown = e => {
+        if(e.key === 'Backspace'){
+            if(countDown >= 280){
+                setCountDown(280)
+            }else{
+                setCountDown(countDown + 1)
+            }
+        }else{
+            setCountDown(countDown - 1)
         }
     }
 
     const addTweet = async () => {
         try {
-            const newRef = storage.ref('imagenes').child(image.name); // nombre del archiv
-            await newRef.put(image);
-            const urlImagen = await newRef.getDownloadURL();
 
-            try {
-                await db.collection('tweets')
-                .add({
-                    avatar:user.photoURL,
-                    tweet:tweet, 
-                    nombre:user.displayName,
-                    id: user.uid, 
-                    fecha: Date.now(), 
-                    idUnico: idUnico, 
-                    likes:0, 
-                    retweet:0,
-                    urlImage:urlImagen, 
-                    verificado:false
-                })
-                changeTweet('');
+            const chain = image.type;
+            const jpeg = 'jpeg';
+            const png = 'png';
+            const gif = 'gif';
+            const jpg = 'jpg';
+
+            const indexJpeg = chain.indexOf(jpeg);
+            const indexPng = chain.indexOf(png);
+            const indexgif = chain.indexOf(gif);
+            const indexJpg = chain.indexOf(jpg);
+
+            if(indexJpeg >= 0 || indexPng >= 0 || indexgif >= 0 || indexJpg >= 0){
+                const newRef = storage.ref('imagenes').child(image.name); // nombre del archiv
+                await newRef.put(image);
+                const urlImagen = await newRef.getDownloadURL();
+
+                try {
+
+                    if(countDown >= 0){
+                        if(user.uid === 'YpY4HvtxonVnNqVbLe3JfERlSCi1' || user.uid === 'S77i6ssj8RPi8PQWuJlJZuuMsdU2'){
+                            await db.collection('tweets')
+                            .add({
+                                avatar:user.photoURL,
+                                tweet:tweet, 
+                                nombre:user.displayName,
+                                id: user.uid, 
+                                fecha: Date.now(),
+                                fechaString: new Date().toString(), 
+                                idUnico: idUnico, 
+                                likes:0, 
+                                retweet:0,
+                                urlImage:urlImagen, 
+                                verificado:true
+                            })
+                            changeTweet('');
+                            changeLoading(false);
+                            history.push('/')
+                            return
+                        }
+                        await db.collection('tweets')
+                        .add({
+                            avatar:user.photoURL,
+                            tweet:tweet, 
+                            nombre:user.displayName,
+                            id: user.uid, 
+                            fecha: Date.now(),
+                            fechaString: new Date().toString(), 
+                            idUnico: idUnico, 
+                            likes:0, 
+                            retweet:0,
+                            urlImage:urlImagen, 
+                            verificado:false
+                        })
+                        changeTweet('');
+                        changeLoading(false);
+                        history.push('/')
+                    }else{
+                        changeLoading(false);
+                    }
+                    
+                } catch (error) {
+                    console.log('ocurrio un error')
+                }
+            }else{
                 changeLoading(false);
-                history.push('/')
-    
-            } catch (error) {
-                console.log('ocurrio un error')
+                setError(true);
             }
-            
 
         } catch (error) {
             try {
-                await db.collection('tweets')
-                .add({
-                    avatar:user.photoURL,
-                    tweet:tweet, 
-                    nombre:user.displayName,
-                    id: user.uid, 
-                    fecha: Date.now(), 
-                    idUnico: idUnico, 
-                    likes:0, 
-                    retweet:0,
-                    urlImage:null, 
-                    verificado:false
-                })
-                changeTweet('');
-                changeLoading(false);
-                history.push('/')
+                if(countDown >= 0){
+                    if(user.uid === 'YpY4HvtxonVnNqVbLe3JfERlSCi1' || user.uid === 'S77i6ssj8RPi8PQWuJlJZuuMsdU2'){
+                        await db.collection('tweets')
+                        .add({
+                            avatar:user.photoURL,
+                            tweet:tweet, 
+                            nombre:user.displayName,
+                            id: user.uid, 
+                            fecha: Date.now(), 
+                            fechaString: new Date().toString(),
+                            idUnico: idUnico, 
+                            likes:0, 
+                            retweet:0,
+                            urlImage:null, 
+                            verificado:true
+                        })
+                        changeTweet('');
+                        changeLoading(false);
+                        history.push('/')
+                        return
+                    }
+                    await db.collection('tweets')
+                    .add({
+                        avatar:user.photoURL,
+                        tweet:tweet, 
+                        nombre:user.displayName,
+                        id: user.uid, 
+                        fecha: Date.now(), 
+                        fechaString: new Date().toString(),
+                        idUnico: idUnico, 
+                        likes:0, 
+                        retweet:0,
+                        urlImage:null, 
+                        verificado:false
+                    })
+                    changeTweet('');
+                    changeLoading(false);
+                    history.push('/')
+                }else{
+                    changeLoading(false);
+                }
+                
     
             } catch (error) {
                 console.log('ocurrio un error')
@@ -93,8 +175,6 @@ export const FormTwetear = () => {
             changeLoading(true);
             addTweet();
         }
-        
-        
     }
 
     return (
@@ -111,6 +191,7 @@ export const FormTwetear = () => {
                             name='tweet'
                             value={tweet}
                             onChange={handleChange}
+                            onKeyDown={handleKeyDown}
                             autoComplete='off'
                 
                     />
@@ -120,6 +201,9 @@ export const FormTwetear = () => {
                         name='file'
                         onChange={handleChange}
                     />
+                    {
+                        error ? <MessageError message={'Formato no admitido'}/> : null
+                    }
                     <DFlex>
                         <div>
                             <Icon className="far fa-image"></Icon>
@@ -127,9 +211,20 @@ export const FormTwetear = () => {
                             <Icon className="fas fa-poll-h"></Icon>
                             <Icon className="far fa-smile"></Icon>
                         </div>
-                        {
-                            loading ? <Button disabled='on'><Spinner/></Button> : <Button type='submit'>Twetear</Button>
-                        }
+                        <ContainerCountDownAndButton>
+                            
+                            {
+                                countDown <= 280 && countDown >= 100
+                                    ? <CountDown>{countDown}</CountDown> 
+                                    : (countDown < 100 && countDown > 0 
+                                        ? <CountDownYellow>{countDown}</CountDownYellow> 
+                                        : <CountDownRed>{countDown}</CountDownRed> )
+                                
+                            }
+                            {
+                                loading ? <Button disabled='on'><Spinner/></Button> : <Button type='submit'>Twetear</Button>
+                            }
+                        </ContainerCountDownAndButton>
                         
                     </DFlex>
                 </form>
@@ -141,6 +236,10 @@ const DFlex = styled.div`
     display:flex;
     justify-content:space-between;
     padding:10px 0 0 0;
+    align-items:center;
+`;
+const ContainerCountDownAndButton = styled.div`
+    display: flex;
     align-items:center;
 `;
 const Container = styled.div`
@@ -182,4 +281,19 @@ const Icon = styled.i`
     color:var(--primary);
     font-size:1.3rem;
     margin-right:7px;
+`;
+const CountDown = styled.p`
+    font-size:15px;
+    color:var(--primary);
+    margin-right:1rem;
+`;
+const CountDownYellow = styled.p`
+    font-size:15px;
+    color:orange;
+    margin-right:1rem;
+`;
+const CountDownRed = styled.p`
+    font-size:15px;
+    color:red;
+    margin-right:1rem;
 `;

@@ -48,7 +48,7 @@ const Img = styled.img`
     border-radius:100%;
     width:30px;
     height:30px;
-    
+    cursor:pointer;
 `;
 const Icon = styled.i`
     color:var(--primary);

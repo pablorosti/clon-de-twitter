@@ -16,7 +16,7 @@ export const Tweet = () => {
 
     return (
         <ContainerDesktop>
-            
+             
             <IndividualCardTweet
                 avatar={tweet.avatar}
                 nombre={tweet.nombre}
@@ -25,8 +25,9 @@ export const Tweet = () => {
                 fecha={tweet.fecha}
                 retweet={tweet.retweet}
                 likes={tweet.likes}
+                fechaString={tweet.fechaString}
             /> 
-
+ 
             <CommentTweet id={id}/>
 
             {
